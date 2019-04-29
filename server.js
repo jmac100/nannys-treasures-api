@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.json({ msg: "Hey there, where are you trying to go?" })
+  res.json({ msg: "Hey there, what do you want?" })
 })
 
 app.use('/member', memberRouter)
