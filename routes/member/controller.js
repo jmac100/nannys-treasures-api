@@ -34,7 +34,7 @@ module.exports = {
         if (err) throw err
 
         if (isMatch) {
-          let token = jwt.sign({ id: member._id }, process.env.secret, { expiresIn: 86400 })
+          let token = jwt.sign({ id: member._id }, process.env.SECRET, { expiresIn: 86400 })
           res.status(200).send({ auth: true, token })
         } else {
           res.status(200).send({ auth: false, msg: 'Login Failed' })
