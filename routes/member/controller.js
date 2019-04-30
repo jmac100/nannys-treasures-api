@@ -10,7 +10,7 @@ module.exports = {
       email: req.body.email,
       password: req.body.password
     })
-    
+
     try {
       const result = await newMember.save()
       let token = jwt.sign({ id: result._id }, process.env.SECRET, { expiresIn: 86400 })
