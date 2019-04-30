@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.json({ msg: "Hey there, what do you want?" })
+  res.json({ msg: process.env.MONGO_URI })
 })
 
 app.use('/member', memberRouter)
