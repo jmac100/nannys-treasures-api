@@ -10,6 +10,7 @@ mongoose.connect(process.env.MONGO_URI, { useCreateIndex: true, useNewUrlParser:
   .catch(err => console.log('An error has occured', err))
 
 const memberRouter = require('./routes/member')
+const poemRouter = require('./routes/poems')
 
 app.use(express.json())
 app.use(cors())
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/member', memberRouter)
+app.use('/poems', poemRouter)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`server started on Port ${PORT}`))
