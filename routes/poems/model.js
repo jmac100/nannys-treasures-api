@@ -27,7 +27,7 @@ const poemSchema = mongoose.Schema({
           },
           created: {
             type: String,
-            default: Date.now()
+            required: true
           }
         }
       ],

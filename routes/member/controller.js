@@ -49,15 +49,17 @@ module.exports = {
       if (!member) {
         res.send({ success: false, msg: 'Member not found' })
       }
-      // const posts = await postModel.find({ member_id })
+      const { _id, displayname, email } = member
       res.send({ 
         success: true, 
-        details: {
-          displayname
+        profile: {
+          _id,
+          displayname,
+          email
         } 
       })
     } catch (error) {
-      res.send({ success: false, msg: 'Internal Server Error' })
+      res.send({ success: false, error: error.message })
     }
   }
 }
