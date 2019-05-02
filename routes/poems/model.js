@@ -1,10 +1,42 @@
 const mongoose = require('mongoose')
 
 const poemSchema = mongoose.Schema({
-  name: {
+  path: {
     type: String,
     required: true
-  }
+  },
+  comments: [
+    {
+      user: {
+        type: String,
+        required: true
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      replies: [
+        {
+          user: {
+            type: String,
+            required: true
+          },
+          text: {
+            type: String,
+            required: true
+          },
+          created: {
+            type: String,
+            default: Date.now()
+          }
+        }
+      ],
+      created: {
+        type: String,
+        default: Date.now()
+      }
+    }
+  ]
 })
 
 const poemModel = mongoose.model('poem', poemSchema)
