@@ -7,7 +7,11 @@ const poemSchema = mongoose.Schema({
   },
   comments: [
     {
-      user: {
+      member_id: {
+        type: mongoose.Types.ObjectId,
+        required: true
+      },
+      displayname: {
         type: String,
         required: true
       },
