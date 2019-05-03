@@ -43,20 +43,30 @@ module.exports = {
     })
   },
   profile: async (req, res) => {
-    let member_id = jwt.decode(req.body.auth_token).id
+    const { auth_token } = req.body
+    if (!auth_token) {
+      return res.status(200).send({ auth: false, msg: 'Missing Token' })
+    }
+
+    const decodedToken = jwt.decode(req.body.auth_token)
+    if (!decodedToken) {
+      return res.send({ auth: false, msg: 'Invalid Token' })
+    }
+    
+    const member_id = decodedToken.id
     try {
       const member = await model.findById(member_id)
       if (!member) {
         res.send({ success: false, msg: 'Member not found' })
       }
       const { _id, displayname, email } = member
-      res.send({ 
-        success: true, 
+      res.send({
+        success: true,
         profile: {
           _id,
           displayname,
           email
-        } 
+        }
       })
     } catch (error) {
       res.send({ success: false, error: error.message })
