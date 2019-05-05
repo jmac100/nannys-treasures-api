@@ -5,6 +5,10 @@ const poemSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
   comments: [
     {
       member_id: {
