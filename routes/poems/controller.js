@@ -29,7 +29,7 @@ module.exports = {
   },
   retrieve: async (req, res) => {
     try {
-      const poems = await model.find()
+      const poems = await model.find().sort('name')
       res.status(200).send({ poems })
     } catch (error) {
       res.status(500).send({ error: error.message })
