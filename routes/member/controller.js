@@ -12,6 +12,9 @@ module.exports = {
     })
 
     try {
+      if (!newMember.displayname || !newMember.email || !newMember.password) {
+        return res.status(200).send({ auth: false, msg: 'All fields are required' })
+      }
       const result = await newMember.save()
       let token = jwt.sign({ id: result._id }, process.env.SECRET, { expiresIn: 86400 })
       res.status(200).send({ auth: true, token })
@@ -64,6 +67,40 @@ module.exports = {
         success: true,
         profile: {
           _id,
+          displayname,
+          email
+        }
+      })
+    } catch (error) {
+      res.send({ success: false, error: error.message })
+    }
+  },
+  editProfile: async (req, res) => {
+    const { auth_token, displayname, email } = req.body
+
+    if (!displayname || !email) {
+      return res.status(200).send({ success: false, msg: 'All fields are required' })
+    }
+
+    const decodedToken = jwt.decode(auth_token)
+    if (!decodedToken) {
+      return res.send({ auth: false, msg: 'Invalid Token' })
+    }
+
+    const member_id = decodedToken.id
+    try {
+      const member = await model.findById(member_id)
+      if (!member) {
+        res.send({ success: false, msg: 'Member not found' })
+      }
+      member.displayname = displayname
+      member.email = email
+      await member.save()
+
+      res.send({
+        success: true,
+        profile: {
+          _id: member_id,
           displayname,
           email
         }
