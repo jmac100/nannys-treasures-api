@@ -15,6 +15,9 @@ const memberSchema = mongoose.Schema({
     required: true,
     unique: true
   },
+  admin: {
+    type: Boolean
+  },
   account_created: {
     type: String,
     default: Date.now()

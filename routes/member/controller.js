@@ -62,13 +62,14 @@ module.exports = {
       if (!member) {
         res.send({ success: false, msg: 'Member not found' })
       }
-      const { _id, displayname, email } = member
+      const { _id, displayname, email, admin } = member
       res.send({
         success: true,
         profile: {
           _id,
           displayname,
-          email
+          email,
+          admin
         }
       })
     } catch (error) {

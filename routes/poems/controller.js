@@ -22,7 +22,8 @@ module.exports = {
       }
 
       await new model(poem).save()
-      res.status(200).send({ poem })
+      const poems = await model.find().sort('name')
+      res.status(200).send({ poems })
     } catch (error) {
       res.status(500).send({ error: error.message })
     }
