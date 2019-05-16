@@ -55,8 +55,14 @@ module.exports = {
         return res.send({ success: false, msg: 'Member not found' })
       }
 
-      const updatedModel = await model.findByIdAndUpdate(id, gallery, { new: true })
-      res.status(200).send({ updatedModel })
+      const gal = await model.findById(id)
+      if (!gal) {
+        res.send({ success: false, msg: 'Gallery not found' })
+      }
+
+      gal.title = gallery.title
+      await gal.save()
+      res.status(200).send({ gal })
     } catch (error) {
       res.status(500).send({ error: error.message })
     }
