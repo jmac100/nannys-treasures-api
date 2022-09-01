@@ -5,7 +5,7 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 
-mongoose.connect(process.env.MONGO_URI, { useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false })
+mongoose.connect(process.env.MONGO_URI, { useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
   .then(() => console.log('Connected to Database'))
   .catch(err => console.log('An error has occured', err))
 
